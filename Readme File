@@ -1,0 +1,237 @@
+# WPCloudStack: WordPress Hosting Architecture on AWS
+
+## Project Overview
+
+This project demonstrates the deployment of a secure and scalable WordPress hosting architecture on AWS using core cloud services such as Amazon VPC, EC2, RDS, and S3. The project focuses on creating a complete cloud-based web hosting environment where the WordPress application runs on an EC2 instance, the MySQL database is managed by Amazon RDS, and static assets are stored in Amazon S3.
+
+---
+
+# AWS Services / Tools Used
+
+* Amazon Web Services (AWS)
+* Amazon VPC
+* Amazon EC2
+* Amazon RDS
+* Amazon S3
+* AWS IAM
+* Linux (Ubuntu/Amazon Linux)
+* WordPress
+* MySQL
+* Apache Web Server
+* PHP
+
+---
+
+# Step-by-Step Implementation
+
+## Step 1: Create AWS Account and Configure IAM
+
+* Logged into AWS Management Console.
+* Configured IAM user with administrative privileges.
+* Selected AWS Region based on latency and availability.
+
+### What We Did
+
+* Created secure access for managing AWS resources.
+* Avoided using the root account for security purposes.
+
+---
+
+## Step 2: Create a Virtual Private Cloud (VPC)
+
+* Created a custom VPC for the project.
+
+### Configuration
+
+* CIDR Block: `10.0.0.0/16`
+
+### What We Did
+
+* Built an isolated network environment for the application.
+* Enabled secure communication between AWS resources.
+
+---
+
+## Step 3: Create Public and Private Subnets
+
+### Public Subnet
+
+* CIDR: `10.0.1.0/24`
+
+### Private Subnet
+
+* CIDR: `10.0.2.0/24`
+
+### What We Did
+
+* Public subnet was used for the EC2 instance hosting WordPress.
+* Private subnet was used for the RDS MySQL database for better security.
+
+---
+
+## Step 4: Configure Internet Gateway and Route Tables
+
+### What We Did
+
+* Created and attached an Internet Gateway to the VPC.
+* Configured route tables for internet access.
+* Associated the public subnet with the public route table.
+
+### Purpose
+
+* Allowed the EC2 instance to access the internet for package installation and website access.
+
+---
+
+## Step 5: Launch EC2 Instance
+
+### EC2 Configuration
+
+* Instance Type: `t2.micro`
+* OS: Ubuntu/Amazon Linux
+* Security Group:
+
+  * HTTP (80)
+  * HTTPS (443)
+  * SSH (22)
+
+### What We Did
+
+* Launched EC2 instance inside the public subnet.
+* Connected to the instance using SSH.
+
+---
+
+## Step 6: Install Apache, PHP, and WordPress
+
+### Installed Packages
+
+* Apache Web Server
+* PHP
+* MySQL Client
+* WordPress
+
+### What We Did
+
+* Configured the EC2 instance as a web server.
+* Installed WordPress application files.
+* Configured Apache to host the website.
+
+---
+
+## Step 7: Create Amazon RDS MySQL Database
+
+### Database Configuration
+
+* Engine: MySQL
+* Deployment: Single AZ
+* Database Class: db.t3.micro
+
+### What We Did
+
+* Created managed MySQL database in the private subnet.
+* Configured database credentials.
+* Enabled secure communication with EC2.
+
+---
+
+## Step 8: Connect WordPress to RDS Database
+
+### What We Did
+
+* Updated WordPress configuration file (`wp-config.php`).
+* Added:
+
+  * Database Name
+  * Username
+  * Password
+  * RDS Endpoint
+
+### Purpose
+
+* Connected the WordPress application with the MySQL database.
+
+---
+
+## Step 9: Configure Security Groups
+
+### What We Did
+
+* Allowed HTTP and HTTPS traffic for website access.
+* Allowed MySQL traffic between EC2 and RDS only.
+* Restricted unnecessary public access.
+
+### Purpose
+
+* Improved application security.
+
+---
+
+## Step 10: Create and Configure S3 Bucket
+
+### What We Did
+
+* Created an S3 bucket for storing static assets.
+* Uploaded media files and backups.
+* Configured bucket permissions.
+
+### Purpose
+
+* Reduced storage load on EC2.
+* Improved scalability and storage management.
+
+---
+
+## Step 11: Deploy and Test WordPress Website
+
+### What We Did
+
+* Accessed WordPress using EC2 public IP.
+* Completed WordPress setup wizard.
+* Created sample pages and uploaded media files.
+
+### Final Output
+
+* Successfully hosted a working WordPress website on AWS cloud infrastructure.
+
+---
+
+# Project Architecture
+
+## Architecture Flow
+
+User → Internet → EC2 (WordPress Website) → RDS MySQL Database
+↓
+Amazon S3 (Static Assets)
+
+---
+
+# Key Features
+
+* Secure VPC Network Architecture
+* Public and Private Subnet Design
+* WordPress Hosting on EC2
+* Managed MySQL Database using RDS
+* Static Asset Storage using S3
+* Secure Security Group Configuration
+* Scalable Cloud Infrastructure
+
+---
+
+# Learning Outcomes
+
+Through this project, we learned:
+
+* AWS networking concepts
+* VPC and subnet configuration
+* EC2 instance management
+* Database deployment using RDS
+* WordPress deployment on AWS
+* S3 storage integration
+* Cloud security best practices
+
+---
+
+# Conclusion
+
+This project demonstrates how AWS cloud services can be integrated to build a secure, scalable, and efficient WordPress hosting architecture. By combining VPC, EC2, RDS, and S3 services, we successfully deployed a complete cloud-based web hosting solution following industry best practices.
